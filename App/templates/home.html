@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %} 
+
+{% block page %}Home{% endblock %}
+
+{% block link%}
+<ul id="nav-mobile" class="right">
+    <li><a href="/logout">Logout</a></li>
+</ul>
+{% endblock %}
+
+{% block styles%}
+
+    td{
+        padding: 2px;
+    }
+
+    .collection .collection-item.active{
+        background-color: #E53935;
+    }
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col m3 list-container collection" style="max-height: 88vh;">
+        {% for one in pokemon %}
+            <a id="poke-{{one.id}}" class="collection-item {{'active' if poke.id == one.id}}" href="/app/{{one.id}}">{{ one.name }}</a>
+        {% endfor %}
+    </div>
+    
+    <div class="col m3">
+
+            <p class="text-center">Selected Pokemon</p>
+
+            <div id="pokemon-detail">
+                <!-- Show pokemon details here -->
+                <span class="card-title">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ poke.id }}.png" />
+                    {{ poke.name }}
+                </span>
+                <p>Type1: {{ poke.type1 }}</p>
+                <p>Type2: {{ poke.type2 }}</p>
+                <p>Weight: {{ poke.weight }}</p>
+                <p>Height: {{ poke.height }}</p>
+                <form action="/pokemon/{{ poke.id }}" method="POST">
+                    <input type="text" id="pokemon_name" name="text" />
+                    <button type="submit" id="captureBtn" class="btn">Capture</button>
+                </form>
+            </div>
+
+    </div>
+
+    <div class="col m6" >
+        <p class="text-center">Your Pokemon</p>
+        <table class="responsive-table" id="pokemon-table">
+            <!-- Captured pokemon content here -->
+            <thead>
+                <tr>
+                    <th>Pokemon</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- show captured pokemon here with controls to rename and release for each pokemon -->
+                {% for one in captured %}
+                    <tr id="{{ one.name }}-row">
+                        <td><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ one.pokemon_id }}.png" />{{ one.pokemon.name }}</td>
+                        <td>{{ one.name }}</td>
+                        <td>
+                            <form id="rename-{{ one.name }}" action="/rename-pokemon/{{ one.id }}" method="POST">
+                                <input type="text" name="text" />
+                                <button type="submit" class="btn">Rename</button>
+                            </form>
+                            <form id="release-{{ one.name }}" action="/release-pokemon/{{ one.id }}" method="GET">
+                                <button type="submit" class="btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

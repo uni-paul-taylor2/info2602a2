@@ -1,0 +1,29 @@
+{
+  "name": "info2602a2",
+  "version": "1.1.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "update-test": "npm install --save testsuite3@latest",
+    "init": "flask init",
+    "start": "flask run",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uwidcit/info2602a2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uwidcit/info2602a2/issues"
+  },
+  "homepage": "https://github.com/uwidcit/info2602a2#readme",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "puppeteer": "^19.7.2",
+    "testsuite3": "^1.0.0"
+  }
+}
